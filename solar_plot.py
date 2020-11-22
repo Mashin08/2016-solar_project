@@ -62,7 +62,7 @@ def draw_and_save_plots():
     energy = (velocity**2 * masses[1] / 2
          - gravitational_constant * masses[0] * masses[1] / distance**2)
 
-    plt.figure(figsize=(8, 12))
+    plt.figure(figsize=(20, 12))
 
     plt.subplot(2, 2, 1)
 
@@ -75,7 +75,7 @@ def draw_and_save_plots():
     plt.minorticks_on()
     plt.grid(which='major', color='k', linewidth=1)
     plt.grid(which='minor', color='k', linestyle=':')
-    plt.plot(time, velocity, color='b')
+    plt.plot(time, velocity, color='r')
 
     plt.subplot(2, 2, 2)
 
@@ -89,7 +89,7 @@ def draw_and_save_plots():
     plt.grid(which='major', color='k', linewidth=1)
     plt.grid(which='minor', color='k', linestyle=':')
 
-    plt.plot(time, distance, color='b')
+    plt.plot(time, distance, color='r')
 
     plt.subplots_adjust(wspace=0.5, hspace=0.5)
 
@@ -105,7 +105,7 @@ def draw_and_save_plots():
     plt.grid(which='major', color='k', linewidth=1)
     plt.grid(which='minor', color='k', linestyle=':')
 
-    plt.plot(velocity, distance, color='b')
+    plt.plot(velocity, distance, color='r')
 
     plt.subplot(2, 2, 4)
 
@@ -119,7 +119,7 @@ def draw_and_save_plots():
     plt.grid(which='major', color='k', linewidth=1)
     plt.grid(which='minor', color='k', linestyle=':')
 
-    plt.plot(time, energy, color='b')
+    plt.plot(time, energy, color='r')
 
     plt.subplots_adjust(wspace=0.5, hspace=0.5)
 

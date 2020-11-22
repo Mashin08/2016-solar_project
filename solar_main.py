@@ -1,6 +1,6 @@
 # coding: utf-8
 # license: GPLv3
-
+import time
 import tkinter
 from tkinter.filedialog import *
 from solar_vis import *
@@ -83,6 +83,7 @@ def open_file_dialog():
     space_objects = read_space_objects_data_from_file(in_filename)
     max_distance = max([max(abs(obj.x), abs(obj.y)) for obj in space_objects])
     calculate_scale_factor(max_distance)
+    delete_last_stats('stats.txt')
 
     for obj in space_objects:
         if obj.type == 'star':
@@ -106,7 +107,7 @@ def save_data_objects_file():
     global physical_time
     name = 'stats.txt'
     write_stats_data_to_file(name, space_objects, physical_time)
-
+    
 def main():
     """Главная функция главного модуля.
     Создаёт объекты графического дизайна библиотеки tkinter: окно, холст, фрейм с кнопками, кнопки.
@@ -140,22 +141,23 @@ def main():
     time_speed = tkinter.DoubleVar()
     scale = tkinter.Scale(frame, variable=time_speed, orient=tkinter.HORIZONTAL)
     scale.pack(side=tkinter.LEFT)
-
+   
     load_file_button = tkinter.Button(frame, text="Open file...", command=open_file_dialog)
     load_file_button.pack(side=tkinter.LEFT)
     save_file_button = tkinter.Button(frame, text="Save to file...", command=save_file_dialog)
     save_file_button.pack(side=tkinter.LEFT)
+
     save_data_button = tkinter.Button(frame, text='Save data to file...', command=save_data_objects_file)
     save_data_button.pack(side=tkinter.LEFT)
     save_plot_button = tkinter.Button(frame, text='Save plot', command=draw_and_save_plots)
     save_plot_button.pack(side=tkinter.LEFT)
 
-
     displayed_time = tkinter.StringVar()
     displayed_time.set(str(physical_time) + " seconds gone")
     time_label = tkinter.Label(frame, textvariable=displayed_time, width=30)
     time_label.pack(side=tkinter.RIGHT)
-   
+    for i in range(10000):
+        save_data_objects_file
     root.mainloop()
     print('Modelling finished!')
 
