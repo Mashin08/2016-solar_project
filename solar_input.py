@@ -2,6 +2,7 @@
 # license: GPLv3
 
 from solar_objects import Star, Planet
+masses_written = False
 
 
 def read_space_objects_data_from_file(input_filename):
@@ -96,9 +97,41 @@ def write_space_objects_data_to_file(output_filename, space_objects):
     """
     with open(output_filename, 'w') as out_file:
         for obj in space_objects:
-            print(out_file, obj.type, obj.R, obj.color, obj.m, obj.x, obj.y, obj.Vx, obj.Vy)
+            print(obj.type, obj.R, obj.color, obj.m, obj.x, obj.y, obj.Vx, obj.Vy, file = out_file)
             # FIXME: should store real values
 
+def delete_last_stats(output_filename):
+    """Функция удаляет предыдущие значения, записанные в файл stats.txt"""
+    with open(output_filename, 'w') as out_file:
+        print('', file=out_file)
+
+def write_stats_data_to_file(output_filename, space_objects, t):
+    """ Функция сохраняет координаты, скорости и время. Строки имеют следующий формат:
+    <x>, <y>, <Vx>, <Vy>, <time>"""
+    global masses_written
+
+    output_file = open(output_filename, 'r')
+    file_list = output_file.readlines()
+
+    for i in range(len(file_list)):
+        file_list[i] = file_list[i].rstrip()
+    output_file.close()
+    x = '{} '.format(space_objects[1].x)
+    y = '{} '.format(space_objects[1].y)
+    Vx = '{} '.format(space_objects[1].Vx)
+    Vy = '{} '.format(space_objects[1].Vy)
+    t = '{}'.format(t)
+    line = x + y + Vx + Vy + t
+    file_list.append(line)
+
+    output_file = open(output_filename, 'w')
+    if not masses_written:
+        print(space_objects[0].m, space_objects[1].m, file=output_file)
+
+        masses_written = True
+    for line in file_list:
+        print(line, file=output_file)
+    output_file.close()
 
 
 
